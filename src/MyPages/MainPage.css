@@ -4,26 +4,27 @@
 }
 
 .left{
-    background-color:  	hsl(219, 13%, 22%);
-    min-width: 15%;
-    position: fixed;
-    min-height: 100vh;
-
+    width: 15%;
+    background-color: hsl(239, 25%, 15%);
+    margin: 0;
 }
 
 .main{
     background-color: hsl(231, 15%, 18%);
-    /* min-height: 200vh; */
-    width: 85%;
-    margin-left: 15%;
     min-height: 100vh;
+    width: 85%;
+    margin-right: 48px;
 }
 
 .right{
-    background-color:  	hsl(219, 13%, 22%);
+    background-color: hsl(239, 25%, 18%);
     position: fixed;
     right: 0;
     top: 2px;
     min-width: 48px;
     height: 100vh;
+}
+
+.mantine-Input-input .mantine-NativeSelect-input{
+    color: blue;
 }

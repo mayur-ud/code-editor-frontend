@@ -1,6 +1,7 @@
 .navbar{
     position: sticky;
     top : 0;
+    margin: 0;
 }
 
 .cont{
@@ -22,13 +23,15 @@
 
 }
 
-.btn{
+.hm-btn{
     color: #0F6698;
     background-color: transparent;
+    font-size: 18px;
+    margin-top: 8px;
 
 }
 
-.btn:hover{
+.hm-btn:hover{
     color: white;
 }
 
@@ -49,7 +52,6 @@
     color:  hsl(226, 34%, 72%);
     margin-top: 40px;
     font-size: 20px;
-    /* max-width: 80%; */
 }
 
 .pbtn{
@@ -58,7 +60,6 @@
     font-size: 24px;
     border: 40px;
     box-shadow: -3px 5px hsl(236, 70%, 83%);
-    /* color:  hsl(236, 40%, 90%); */
     color: rgba(255,255,255,0.8);
     margin-left: 50%;
     margin-top: 24px;
