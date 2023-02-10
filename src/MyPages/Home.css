@@ -1,0 +1,71 @@
+.navbar{
+    position: sticky;
+    top : 0;
+}
+
+.cont{
+    margin: 0px 20px;
+    display: flex;
+    
+}
+
+.cont1{
+    max-width: 40%;
+    display: inline-block;
+    margin-top: 64px;
+}
+
+.cont2{
+    display: inline-block;
+    min-width: 60%;
+    margin-top: 64px;
+
+}
+
+.btn{
+    color: #0F6698;
+    background-color: transparent;
+
+}
+
+.btn:hover{
+    color: white;
+}
+
+
+.heroGif{
+    max-width: 90%;
+    margin: auto;
+    padding-top: 36px;
+}
+
+.title{
+    font-size : 78px;
+    /* max-width : 80%; */
+    color :  	hsl(236, 30%, 43%);
+}
+
+.slogan{
+    color:  hsl(226, 34%, 72%);
+    margin-top: 40px;
+    font-size: 20px;
+    /* max-width: 80%; */
+}
+
+.pbtn{
+    background-color: hsl(236, 30%, 30%);
+    padding: 12px;
+    font-size: 24px;
+    border: 40px;
+    box-shadow: -3px 5px hsl(236, 70%, 83%);
+    /* color:  hsl(236, 40%, 90%); */
+    color: rgba(255,255,255,0.8);
+    margin-left: 50%;
+    margin-top: 24px;
+    
+}
+
+.pbtn:hover{
+    color: black;
+    background-color: hsl(236, 70%, 83%);
+}

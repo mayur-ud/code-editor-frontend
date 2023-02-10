@@ -1,0 +1,29 @@
+.cont{
+    margin: 0;
+    min-height: 50vh;
+}
+
+.left{
+    background-color:  	hsl(219, 13%, 22%);
+    min-width: 15%;
+    position: fixed;
+    min-height: 100vh;
+
+}
+
+.main{
+    background-color: hsl(231, 15%, 18%);
+    /* min-height: 200vh; */
+    width: 85%;
+    margin-left: 15%;
+    min-height: 100vh;
+}
+
+.right{
+    background-color:  	hsl(219, 13%, 22%);
+    position: fixed;
+    right: 0;
+    top: 2px;
+    min-width: 48px;
+    height: 100vh;
+}
