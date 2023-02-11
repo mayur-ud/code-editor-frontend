@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './MyPages/Home';
 import MainPage from './MyPages/MainPage';
 import Dummy from './MyPages/Dummy';
+import Auth from './components/Auth/App1';
 
 
 function App() {
@@ -18,13 +19,14 @@ function App() {
                         path="/editor/:projectId"
                         element={<MainPage />}
                     ></Route>
-                    <Route path='dummy' element={<Dummy />} />
+                    <Route path='/dummy' element={<Dummy />} />
+                    <Route path='/auth/login' element={<Auth show='login'/>} />
+                    <Route path='/auth/register' element={<Auth show='register'/>} />
                 </Routes>
             </BrowserRouter>
         </>
     );
 
-    return <MainPage/>
 }
 
 export default App;

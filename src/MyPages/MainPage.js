@@ -11,6 +11,8 @@ import './MainPage.css'
 import ACTIONS from '../Actions';
 import { initSocket } from '../socket';
 import { useNavigate, useParams } from 'react-router-dom'
+import { useQuery } from '@apollo/client'
+import { USER_DATA , GET_PROJECTS } from '../assets/queries'
 
 
 function MainPage() {
@@ -23,12 +25,32 @@ function MainPage() {
   const {projectId} = useParams();
   const navigate = useNavigate()
 
+  const uid = localStorage.getItem('uid')
 
-  useEffect(() => {
-    const init = async () => {
+  const {loading , error , data} = useQuery(USER_DATA , {
+    variables : {
+        userId: uid
+      }
+    })
 
-      const uid = localStorage.getItem('uid');
-      console.log('uid' , uid , projectId)
+    const pdata = useQuery(GET_PROJECTS , {
+        variables : {
+            projectId
+        }
+    })
+
+
+
+
+    if(!loading){
+        console.log(data , 'dattttt')   
+    }
+
+  useEffect( () => {
+
+        async function init(){    
+        const uid = localStorage.getItem('uid')
+        console.log('uid' , uid )
 
       if(!uid){
         handleErrors('Please Login to Continue')
@@ -78,9 +100,8 @@ function MainPage() {
                 console.log('disconnected ' , username)
                 console.log(clients)
             }
-        );
-    };
-    init();
+        );}
+        init()
     return () => {
         socketRef.current.disconnect();
         socketRef.current.off(ACTIONS.JOINED);
@@ -120,10 +141,10 @@ function MainPage() {
         </Grid.Col>
     </Grid>
         </div>
-        <Editor socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>
+        <Editor content={pdata.data?.project.content} socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>
     </div>
     <div className='right'>
-        <RightPane setLang={setLang} lang={lang} />
+        <RightPane setLang={setLang} lang={lang} data={data}/>
     </div>
     </div>
   )

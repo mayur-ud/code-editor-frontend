@@ -1,15 +1,20 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { HashRouter as Router, Route, NavLink } from "react-router-dom";
-import SignUpForm from "../Mypages/SignUpForm";
-import SignInForm from "../Mypages/SignInForm";
+
+import SignUpForm from '../../MyPages/SignUpForm'
+import SignInForm from '../../MyPages/SignInForm'
+
 import Tw from "./typewr";
 import "./App1.css";
 import Card from "./Card";
 
-const App1=()=>  {
- 
+
+const Auth=(props)=>  {
+  
+  const [show , setShow] = useState(props.show || 'login')
+
+
     return (
-      <Router basename="/react-auth-ui/">
         <div className="App">
           <div className="appAside" >
             
@@ -24,17 +29,16 @@ const App1=()=>  {
           <div className="appForm">
             <div className="pageSwitcher">
               <NavLink
-                to="/sign-in"
-                activeClassName="pageSwitcherItem-active"
-                className="pageSwitcherItem"
+                
+                className={`formTitleLink ${show === 'login' ? 'formTitleLink-active' : '' }`}
+                onClick={()=>setShow('login')}
               >
                 Sign In
               </NavLink>
               <NavLink
-                exact
-                to="/"
-                activeClassName="pageSwitcherItem-active"
-                className="pageSwitcherItem"
+                
+                className={`formTitleLink ${show !== 'login' ? 'formTitleLink-active' : '' }`}
+                onClick={()=>setShow('register')}
               >
                 Sign Up
               </NavLink>
@@ -42,31 +46,31 @@ const App1=()=>  {
 
             <div className="formTitle">
               <NavLink
-                to="/sign-in"
-                activeClassName="formTitleLink-active"
-                className="formTitleLink"
+                to="/auth/login"
+               
+                className={`formTitleLink ${show === 'login' ? 'formTitleLink-active' : '' }`}
+                onClick={()=>setShow('login')}
               >
                 Sign In
               </NavLink>{" "}
               or{" "}
               <NavLink
-                exact
-                to="/"
-                activeClassName="formTitleLink-active"
-                className="formTitleLink"
+                
+                to="/auth/register"
+    
+                className={`formTitleLink ${show !== 'login' ? 'formTitleLink-active' : '' }`}
+                onClick={()=>setShow('register')}
               >
                 Sign Up
               </NavLink>
             </div>
 
-            <Route exact path="/" component={SignUpForm} />
-            <Route path="/sign-in" component={SignInForm} />
+            {show === 'login' ? <SignInForm setShow={setShow}/> : <SignUpForm setShow={setShow}/>}
+
           </div>
         </div>
-      </Router>
     );
   
 }
 
-export default App1;
-//
+export default Auth;

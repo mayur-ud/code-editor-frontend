@@ -1,42 +1,42 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component, useState } from "react";
+import { REGISTER_USER } from "../assets/queries";
+import { useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
-class SignUpForm extends Component {
-  constructor() {
-    super();
+function SignUpForm ({setShow}) {
+  
+  const [email , setEmail] = useState('')
+  const [password , setPassword] = useState('')
+  const [name , setName] = useState('')
 
-    this.state = {
-      email: "",
-      password: "",
-      name: "",
-      hasAgreed: false
-    };
+  const [RegisterUser , {error}] = useMutation(REGISTER_USER)
+  const nav = useNavigate()
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
-  handleChange(event) {
-    let target = event.target;
-    let value = target.type === "checkbox" ? target.checked : target.value;
-    let name = target.name;
 
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    
+    await RegisterUser({ variables : {
+        userName : name,
+        userId : email,
+        password
+      }
+  }).then((resp)=>{
+    console.log(resp)
+    setShow('login')
+    
+  }).catch((e)=>{
+    console.error(e)
+  })
 
-    console.log("The form was submitted with the following data:");
-    console.log(this.state);
-  }
+    console.log(email,password,name);
+    // console.log(this.state);
+    }
 
-  render() {
     return (
       <div className="formCenter">
-        <form onSubmit={this.handleSubmit} className="formFields">
+        <form onSubmit={(e)=>{handleSubmit(e)}} className="formFields">
           <div className="formField">
             <label className="formFieldLabel" htmlFor="name">
               Full Name
@@ -47,8 +47,8 @@ class SignUpForm extends Component {
               className="formFieldInput"
               placeholder="Enter your full name"
               name="name"
-              value={this.state.name}
-              onChange={this.handleChange}
+              value={name}
+              onChange={(e)=>{setName(e.target.value)}}
             />
           </div>
           <div className="formField">
@@ -61,8 +61,8 @@ class SignUpForm extends Component {
               className="formFieldInput"
               placeholder="Enter your password"
               name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
+              value={password}
+              onChange={(e)=>{setPassword(e.target.value)}}
             />
           </div>
           <div className="formField">
@@ -75,22 +75,18 @@ class SignUpForm extends Component {
               className="formFieldInput"
               placeholder="Enter your email"
               name="email"
-              value={this.state.email}
-              onChange={this.handleChange}
+              value={email}
+              onChange={(e)=>{setEmail(e.target.value)}}
             />
           </div>
 
           
 
           <div className="formField">
-            <button className="formFieldButton">Sign Up</button>{" "}
-            <Link to="/sign-in" className="formFieldLink">
-              I'm already member
-            </Link>
+            <button className="formFieldButton" onClick={(e)=>{handleSubmit(e)}}>Sign Up</button>{" "}
           </div>
         </form>
       </div>
     );
   }
-}
 export default SignUpForm;

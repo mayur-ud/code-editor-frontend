@@ -75,6 +75,11 @@
   font-size: 1.7em;
   margin: 0 10px;
   padding-bottom: 5px;
+
+}
+
+.formTitleLink:hover{
+  cursor: pointer;
 }
 
 .formTitleLink:first-child {
@@ -122,6 +127,11 @@
   padding: 15px 70px;
   font-size: 0.8em;
   font-weight: 500;
+  
+}
+
+.formFieldButton:hover{
+  cursor: pointer;
 }
 
 .formFieldLink {

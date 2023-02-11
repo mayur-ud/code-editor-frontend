@@ -78,8 +78,8 @@ import {
   
   export function FeaturesCards() {
     const { classes, theme } = useStyles();
-    const features = mockdata.map((feature) => (
-      <Fcard   className={classes.card} >
+    const features = mockdata.map((feature,index) => (
+      <Fcard  key={index} className={classes.card} >
         
         <Text color="white" size="xl" weight={500} className={classes.cardTitle} mt="md">
           {feature.title}

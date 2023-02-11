@@ -1,41 +1,36 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component, useState } from "react";
+import { LOGIN_USER } from "../assets/queries";
+import { useMutation, useQuery } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 
-class SignInForm extends Component {
-  constructor() {
-    super();
+function SignInForm () {
+    
+  const [email , setEmail] = useState('')
+  const [password , setPassword] = useState('')
 
-    this.state = {
-      email: "",
-      password: ""
-    };
+  const [LoginUser , {error}] = useMutation(LOGIN_USER)
+  const nav = useNavigate()
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  async function HandleSubmit(){
+    console.log(email , password)
+    LoginUser({
+      variables : {
+        userId : email,
+        password
+      }
+    }).then((e)=>{
+      console.log(e , 'LOGIN SUCCESS')
+      localStorage.setItem('uid' , email)
+      nav('/editor/2')
+    })
+
   }
 
-  handleChange(event) {
-    let target = event.target;
-    let value = target.type === "checkbox" ? target.checked : target.value;
-    let name = target.name;
 
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    console.log("The form was submitted with the following data:");
-    console.log(this.state);
-  }
-
-  render() {
     return (
       <div className="formCenter">
-        <form className="formFields" onSubmit={this.handleSubmit}>
+        <form className="formFields" onSubmit={HandleSubmit}>
           <div className="formField">
             <label className="formFieldLabel" htmlFor="email">
               E-Mail Address
@@ -46,8 +41,8 @@ class SignInForm extends Component {
               className="formFieldInput"
               placeholder="Enter your email"
               name="email"
-              value={this.state.email}
-              onChange={this.handleChange}
+              value={email}
+              onChange={(e)=>{setEmail(e.target.value)}}
             />
           </div>
 
@@ -61,23 +56,17 @@ class SignInForm extends Component {
               className="formFieldInput"
               placeholder="Enter your password"
               name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
+              value={password}
+              onChange={(e)=>{setPassword(e.target.value)}}
             />
           </div>
 
           <div className="formField">
-            <button className="formFieldButton">Sign In</button>{" "}
-            <Link to="/" className="formFieldLink">
-              Create an account
-            </Link>
+            <button className="formFieldButton" onClick={()=>HandleSubmit()}>Sign In</button>{" "}
           </div>
-
-          
         </form>
       </div>
-    );
-  }
+    )
 }
 
 export default SignInForm;

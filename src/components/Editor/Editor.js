@@ -16,7 +16,7 @@ import ACTIONS from '../../Actions';
 import './Editor.css'
 
 
-function Editor({ socketRef, projectId, onCodeChange , lang , theme}) {
+function Editor({ socketRef, projectId, onCodeChange , lang , theme , content}) {
 
     let editorRef = useRef(null);
     console.log('Elang' , lang)
@@ -34,6 +34,12 @@ function Editor({ socketRef, projectId, onCodeChange , lang , theme}) {
                     lineNumbers: true,
                 }
             );
+
+            console.log(content , 'content')
+
+            if(content){
+                editorRef.current.setValue(String(content))
+            }
 
 
             editorRef.current.on('change', (instance, changes) => {
@@ -57,7 +63,7 @@ function Editor({ socketRef, projectId, onCodeChange , lang , theme}) {
             console.log(editorRef.current.options.mode.name)
         }
         
-    },[lang , theme])
+    },[lang , theme , content])
 
 
     useEffect(() => {
