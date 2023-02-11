@@ -28,7 +28,7 @@ function MainPage() {
     const init = async () => {
 
       const uid = localStorage.getItem('uid');
-      console.log('uid' , uid)
+      console.log('uid' , uid , projectId)
 
       if(!uid){
         handleErrors('Please Login to Continue')
@@ -53,7 +53,7 @@ function MainPage() {
         // // Listening for joined event
         socketRef.current.on(
             ACTIONS.JOINED,
-            ({ clients, username, socketId }) => {
+            ({ clients, username, socketId , projectId }) => {
                 if (username !== uid) {
                     console.log(`${username} joined`);
                 }
@@ -76,6 +76,7 @@ function MainPage() {
                     );
                 });
                 console.log('disconnected ' , username)
+                console.log(clients)
             }
         );
     };
@@ -85,7 +86,7 @@ function MainPage() {
         socketRef.current.off(ACTIONS.JOINED);
         socketRef.current.off(ACTIONS.DISCONNECTED);
     };
-}, []);
+}, [projectId]);
 
 
     const [lang , setLang] = useState('cmake');
