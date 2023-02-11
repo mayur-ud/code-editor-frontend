@@ -3,8 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './MyPages/Home';
 import MainPage from './MyPages/MainPage';
+import Dummy from './MyPages/Dummy';
+
 
 function App() {
+    
     return (
         <>
             <BrowserRouter>
@@ -14,6 +17,7 @@ function App() {
                         path="/editor/:projectId"
                         element={<MainPage />}
                     ></Route>
+                    <Route path='dummy' element={<Dummy />} />
                 </Routes>
             </BrowserRouter>
         </>
