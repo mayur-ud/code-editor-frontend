@@ -7,6 +7,7 @@
 .cont{
     margin: 0px 0px;
     display: flex;
+    margin-bottom: 24px;
     
 }
 
@@ -43,7 +44,7 @@
 }
 
 .title{
-    font-size : 78px;
+    font-size : 96px;
     /* max-width : 80%; */
     color :  	hsl(236, 30%, 43%);
 }
@@ -51,18 +52,18 @@
 .slogan{
     color:  hsl(226, 34%, 72%);
     margin-top: 40px;
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .pbtn{
     background-color: hsl(236, 30%, 30%);
     padding: 12px;
-    font-size: 24px;
+    font-size: 32px;
     border: 40px;
     box-shadow: -3px 5px hsl(236, 70%, 83%);
     color: rgba(255,255,255,0.8);
     margin-left: 50%;
-    margin-top: 24px;
+    margin-top: 96px;
     
 }
 
