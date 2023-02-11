@@ -1,10 +1,22 @@
-import { Button, Center, Group, SimpleGrid, Stack, Text } from '@mantine/core';
+import { useMutation } from '@apollo/client';
+import { Button, Center, Group, SimpleGrid, Stack, Text, UnstyledButton } from '@mantine/core';
 import React from 'react'
 import Avatar from 'react-avatar';
 import {RiRadioButtonLine} from 'react-icons/ri'
-function LeftPane({clients}) {
+import { ADD_TO_PROJ } from '../../assets/queries';
+function LeftPane({clients , data , pid}) {
 
-  console.log(clients , 'left pane');
+  const [AddToProject , {loading , error }] = useMutation(ADD_TO_PROJ)
+
+  const handleAdd = (e)=>{
+      e.preventDefault()
+      AddToProject({
+        variables : {
+          userId : 'qwert',
+          projectId : pid
+        }
+      })
+  }
 
   return (
     <div style={{
@@ -20,6 +32,10 @@ function LeftPane({clients}) {
         <Text size='sm' m={0} p={0} color='white'>{ele.username.split(' ')[0] > 10 ? ele.username.slice(0,11) : ele.username.split(' ')[0]}</Text>
       </Stack>)}
       </SimpleGrid>
+
+      { (data?.createdBy === localStorage.getItem('uid')) &&  <UnstyledButton onClick={(e)=>{handleAdd(e)}}>Add Members</UnstyledButton>} 
+
+
       
     </div>
   )

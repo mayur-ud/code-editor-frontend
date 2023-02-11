@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {FaPlusCircle , FaFolder , FaArrowRight} from 'react-icons/fa'
 
 
 import './RightPane.css'
-import { ActionIcon, Button, ScrollArea, SimpleGrid, Stack, Title, UnstyledButton } from '@mantine/core'
+import { ActionIcon, Button, ScrollArea, Modal, Stack, Title, UnstyledButton } from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
+import InputForm from '../../components/Editor/addProject'
 
 function RightPane({lang , setLang , data}) {
   console.log(data , 'data')
+
+  const [opened, setOpened] = useState(false);  
 
   const c = data?.user.allowedProjects.filter( x => !data?.user.createdProjects.filter( y => y.projectId === x.projectId).length);
 
@@ -43,13 +46,21 @@ function RightPane({lang , setLang , data}) {
 
       <div className='container' >
       
-        <FaPlusCircle size={36} className='btn'  />
+        <FaPlusCircle size={36} className='btn'  onClick={()=>{setOpened(true)}}/>
         <FaFolder onClick={()=>{
           const ele = document.getElementById('aside-toolbar');
           ele.style.display = 'block'
         }} size={36} className='btn' />        
 
     </div>
+
+    <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Create New Project"
+      >
+        <InputForm setOpened={setOpened}/>
+      </Modal>
       
       
       </>

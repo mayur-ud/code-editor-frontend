@@ -24,6 +24,30 @@ mutation LoginUser($userId: String!, $password: String!) {
 }
 `
 
+export const ADD_TO_PROJ = gql`
+mutation AddToProject($userId: String!, $projectId: String!) {
+    add_allowed_user(input:{ userId : $userId , projectId : $projectId }) {
+        allowedUsers
+    }
+}
+`
+export const CREATE_PROJECT = gql`
+mutation CreateProject($userId: String!, $projectId: String! , $projectName : String!) {
+    create_project(input:{ userId : $userId , project : {
+        projectName : $projectName,
+        createdBy : $userId,
+        allowedUsers : [$userId],
+        language : "cmake",
+        projectId : $projectId
+    } }) {
+        userId
+        
+    }
+}
+`
+
+
+
 export const ALL_USERS = gql`
 query {
   users {

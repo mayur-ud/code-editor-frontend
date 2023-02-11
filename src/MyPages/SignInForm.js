@@ -22,7 +22,7 @@ function SignInForm () {
     }).then((e)=>{
       console.log(e , 'LOGIN SUCCESS')
       localStorage.setItem('uid' , email)
-      nav('/editor/2')
+      nav('/editor/-1')
     })
 
   }

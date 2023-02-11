@@ -13,6 +13,7 @@ import { initSocket } from '../socket';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { USER_DATA , GET_PROJECTS } from '../assets/queries'
+import Def from '../components/Editor/default'
 
 
 function MainPage() {
@@ -40,10 +41,12 @@ function MainPage() {
     })
 
 
-
-
     if(!loading){
         console.log(data , 'dattttt')   
+    }
+
+    if(!pdata.loading){
+        console.log(pdata.data , 'pdata')
     }
 
   useEffect( () => {
@@ -116,7 +119,7 @@ function MainPage() {
 
   return (<div className='cont'>
       <div className='left'>
-        <LeftPane clients={clients}/>
+        {projectId != '-1' && <LeftPane clients={clients} pid={projectId} data={pdata.data?.project}/>}
       </div>
     <div className='main'>
         <div style={{maxHeight : '64px' , margin : '8px 0px' , backgroundColor :  'hsl(231, 25%, 18%)' , padding : '0px 4px'}}>
@@ -141,7 +144,7 @@ function MainPage() {
         </Grid.Col>
     </Grid>
         </div>
-        <Editor content={pdata.data?.project.content} socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>
+        {projectId === '-1' ? <Def/> :  <Editor content={pdata.data?.project.content} socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>}
     </div>
     <div className='right'>
         <RightPane setLang={setLang} lang={lang} data={data}/>

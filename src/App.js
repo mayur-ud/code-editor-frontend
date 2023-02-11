@@ -6,6 +6,7 @@ import Home from './MyPages/Home';
 import MainPage from './MyPages/MainPage';
 import Dummy from './MyPages/Dummy';
 import Auth from './components/Auth/App1';
+import Def from './components/Editor/default';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                     <Route path='/dummy' element={<Dummy />} />
                     <Route path='/auth/login' element={<Auth show='login'/>} />
                     <Route path='/auth/register' element={<Auth show='register'/>} />
+                    
                 </Routes>
             </BrowserRouter>
         </>
