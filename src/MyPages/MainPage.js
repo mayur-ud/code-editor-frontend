@@ -332,7 +332,7 @@ function MainPage() {
         
     </Grid>
         </div>
-        {pid == '-1' ? <Def/> :  <Editor editorRef={editorRef} content={pdata.data?.project.content} socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>}
+        {projectId == '-1' ? <Def/> :  <Editor editorRef={editorRef} content={pdata.data?.project.content} socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>}
     </div>
     <div className='right'>
         <RightPane setLang={setLang} lang={lang} data={data}/>
