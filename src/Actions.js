@@ -6,7 +6,8 @@ const ACTIONS = {
     SYNC_CODE: 'sync-code',
     LEAVE: 'leave',
     BROADCAST : 'broadcast',
-    GET_BROADCAST : 'getBroadcast'
+    GET_BROADCAST : 'getBroadcast',
+    STREAM : 'stream'
 };
 
 module.exports = ACTIONS;

@@ -82,7 +82,7 @@ function MainPage() {
 
   useEffect(()=>{
 
-    if(socketRef.current){
+    if(socketRef.current && projectId != -1){
         console.log('SOCKET EXISTSSSS')
         socketRef.current.on(ACTIONS.GET_BROADCAST , ({cast})=>{
             console.log('CAUGHT GET BROADCAST' , cast)
@@ -147,9 +147,20 @@ function MainPage() {
         console.log('uid' , uid )
 
       if(!uid){
-        handleErrors('Please Login to Continue')
-        // localStorage.setItem('uid' , 'newUSER2');
+        setOptions({
+            text : 'Something went wrong',
+            color : 'red',
+            title : 'Sorry'
+
+        })
+
+        setTimeout(() => {
+            setOptions(null)
+        }, 3000);
+        navigate('/' , {'replace' : true} )
       }
+      if(projectId != -1){
+       
 
         socketRef.current = await initSocket();
         socketRef.current.on('connect_error', (err) => handleErrors(err));
@@ -168,7 +179,6 @@ function MainPage() {
                 setOptions(null)
             }, 3000);
             navigate('/' , {'replace' : true} )
-
         }
 
         socketRef.current.emit(ACTIONS.JOIN, {
@@ -205,6 +215,7 @@ function MainPage() {
                 console.log(clients)
             }
         );}
+        }
         init()
     return () => {
         socketRef.current.disconnect();
@@ -227,20 +238,17 @@ function MainPage() {
 
   return (<div className='cont'>
       <div className='left'>
-      {projectId != '-1' && <LeftPane clients={clients} pid={projectId} data={pdata.data?.project}/>}
+        {projectId == '-1' ? <>CODELAB</> : <LeftPane clients={clients} pid={projectId} data={pdata.data?.project}/>}
       </div>
     <div className='main'>
         <div style={{maxHeight : '64px' , margin : '8px 0px' , backgroundColor :  'hsl(231, 25%, 18%)' , padding : '0px 4px'}}>
     <Grid gutter='sm' px='md' justify="left">
         <Grid.Col span={1}>
-            <Center>
+            {pdata?.data && <Center>
                 <Badge variant="filled" py='md' mt='md' color='green' fullWidth>
                 {pdata.data?.project.projectName}
                 </Badge>
-            </Center>
-        </Grid.Col>
-        <Grid.Col span={1}>
-
+            </Center>}
         </Grid.Col>
         <Grid.Col  span={2}>
             <Text color='cyan'>Language</Text>
@@ -251,7 +259,7 @@ function MainPage() {
             </Group>
         </Grid.Col>
 
-        <Grid.Col span={2}>
+        <Grid.Col span={3}>
             <Text color='cyan'>Theme</Text>
             <Group spacing={'4px'}>
                 <Button size='sm' compact variant={`${theme === 'dracula' ? 'filled' : 'outline'}`} onClick={()=>setTheme('dracula')}>Dracula</Button>

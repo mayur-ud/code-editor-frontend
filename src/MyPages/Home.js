@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import hero from '../assets/hero.gif'
 import { FeaturesCards } from '../components/Feature'
-import logo from '../assets/LOGO1.png'
+import logo from '../assets/LOGO3.png'
 import './Home.css'
 
 function Home() {
@@ -14,15 +14,16 @@ function Home() {
         background: ' 	hsl(203,80%, 12%)',
         filter : 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#020b19",endColorstr="#0c1638",GradientType=1)',
         padding:'12px',
-        paddingBottom : '128px',
-        marginTop : '-32px'
+        paddingBottom : '180px',
+        marginTop : '-2px',
+        // marginBottom : '64px'
     }}
     >
             {/* <UnstyledButton sx={{
                 marginLeft : 26,
             }} className='hm-btn'>LOGO</UnstyledButton> */}
          <div minWidth="30px">
-         <img src={logo} height="110px" width="200px" alt="ogo" />
+         <img src={logo} height="75px" width="250px" alt="ogo" />
          </div>
           
 
@@ -34,6 +35,19 @@ function Home() {
                 padding: '4px',
                 borderRadius: '6px',
                 color: '#9A9DA1'
+                
+                
+            }} onClick={()=>navigate('/auth/register')} className='hm-btn'>Sign Up</UnstyledButton>
+
+<UnstyledButton sx={{
+                marginRight : 42,
+                float : 'right',
+            //  border: '2px solid black',
+                padding: '4px',
+                borderRadius: '6px',
+                color: '#9A9DA1',
+                position : 'relative',
+                right : '100px'
                 
                 
             }} onClick={()=>navigate('/auth/login')} className='hm-btn'>Log In</UnstyledButton>
