@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 
 
+
 import {
   ApolloClient,
   ApolloProvider,  InMemoryCache,
@@ -11,7 +12,7 @@ import {
 import { StoreProvider } from './assets/StoreContext';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+  uri: process.env.REACT_APP_BACKEND_URL,
   cache: new InMemoryCache(),
 })
 
