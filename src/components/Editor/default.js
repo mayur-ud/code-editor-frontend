@@ -10,7 +10,7 @@ const Def=()=>{
             <TbLayoutGridAdd  className="plusbtn" size="100px"/>
             </div>
 
-           <h1 className="def-h1">Create or open a project.</h1>
+           <h1 className="def-h1">Create or Open a project.</h1>
         </div>
         );
 }

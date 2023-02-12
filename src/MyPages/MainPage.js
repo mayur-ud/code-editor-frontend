@@ -14,11 +14,10 @@ import { USER_DATA , GET_PROJECTS, SAVE_CODE } from '../assets/queries'
 import Def from '../components/Editor/default'
 import StoreContext from '../assets/StoreContext'
 
-import logo from '../assets/LOGO3.png'
+import logo from '../assets/Aside.png'
 
 import {FaDownload} from 'react-icons/fa'
-import Dummy from './404'
-import Space from './404'
+import logo404 from '../assets/404.jpeg'
 
 
 function MainPage() {
@@ -250,12 +249,12 @@ function MainPage() {
         console.log('NOT ACCESS THIS PAGE' )
         
         
-        return <Box >404 PAge not found</Box>
+        return <Image src={logo404} sx={{marginTop : '10%'}} height={'40vh'} fit="contain"/>
     }
 
   return (<div className='cont'>
       <div className='left'>
-        {projectId == '-1' ? <><Image  src={logo}></Image></> : <LeftPane clients={clients} pid={projectId} data={pdata.data?.project}/>}
+        {projectId == '-1' ? <><Image mt='20%'  src={logo} height='90vh' ></Image></> : <LeftPane clients={clients} pid={projectId} data={pdata.data?.project}/>}
       </div>
     <div className='main'>
         <div style={{maxHeight : '64px' , margin : '8px 0px' , backgroundColor :  'hsl(231, 25%, 18%)' , padding : '0px 4px'}}>

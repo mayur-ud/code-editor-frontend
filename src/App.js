@@ -7,11 +7,11 @@ import MainPage from './MyPages/MainPage';
 import Dummy from './MyPages/404';
 import Auth from './components/Auth/App1';
 import Def from './components/Editor/default';
-import { Affix, Notification } from '@mantine/core';
+import { Affix, Image, Notification } from '@mantine/core';
 import { useContext, useEffect, useRef } from 'react';
 import StoreContext from './assets/StoreContext';
 import ACTIONS from './Actions';
-import { useTimeout } from '@mantine/hooks';
+import logo404 from './assets/404.jpeg'
 
 
 
@@ -33,6 +33,7 @@ function App() {
                     <Route path='/dummy' element={<Dummy />} />
                     <Route path='/auth/login' element={<Auth show='login' />} />
                     <Route path='/auth/register' element={<Auth show='register' />} />
+                    <Route path='*' element={<Image src={logo404} sx={{marginTop : '10%'}} height={'40vh'} fit="contain"/>} />
                     
                 </Routes>
             </BrowserRouter>

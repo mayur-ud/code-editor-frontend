@@ -1,5 +1,5 @@
 .onsc{
-    background-color: rgb(115, 109, 109);
+    background-color: 'hsl(230,25%,12%)';
     color:white;
     min-height: 90vh;
 }
@@ -10,6 +10,7 @@
     margin-left: 310px;
     font-size: 40px;
     font-weight: 500;
+    color: aliceblue;
     
     
 }
@@ -17,6 +18,5 @@
 .plusbtn{
     margin-top: 200px;
     margin-left: 550px;
-    
-  
+     
 }
