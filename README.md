@@ -1,3 +1,1 @@
-### Demo
-
-https://code-sync.codersgyan.com/
+Hackathon Project For E-CELL Hackathon By Team Code Geass
