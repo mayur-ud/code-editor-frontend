@@ -5,7 +5,7 @@ import Avatar from 'react-avatar';
 import {RiRadioButtonLine} from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom';
 import ACTIONS from '../../Actions';
-import { ADD_TO_PROJ } from '../../assets/queries';
+import { ADD_TO_PROJ , USER_DATA, GET_PROJECTS } from '../../assets/queries';
 import StoreContext from '../../assets/StoreContext';
 function LeftPane({clients , data , pid}) {
 
