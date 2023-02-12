@@ -9,7 +9,11 @@ import { ADD_TO_PROJ } from '../../assets/queries';
 import StoreContext from '../../assets/StoreContext';
 function LeftPane({clients , data , pid}) {
 
-  const [AddToProject , {loading , error }] = useMutation(ADD_TO_PROJ)
+  const [AddToProject , {loading , error }] = useMutation(ADD_TO_PROJ , {
+    refetchQueries: [{query : USER_DATA,variables: { userId: localStorage.getItem('uid') }},
+    {query : GET_PROJECTS,variables: { projectId: params.projectId }}
+  ],
+  })
 
   const { options , setOptions , socketRef , setCast} = useContext(StoreContext)
   const inpRef = useRef()
