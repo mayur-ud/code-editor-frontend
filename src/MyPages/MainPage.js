@@ -1,4 +1,4 @@
-import { Badge, Button, Center, Grid, Group, Modal, NativeSelect, Navbar, Text } from '@mantine/core'
+import { Badge, Button, Center, Grid, Group, Image, Modal, NativeSelect, Navbar, Text } from '@mantine/core'
 import { useRef , useState , useEffect, useContext} from 'react'
 import Editor from '../components/Editor/Editor'
 import LeftPane from '../components/Editor/LeftPane'
@@ -14,7 +14,10 @@ import { USER_DATA , GET_PROJECTS, SAVE_CODE } from '../assets/queries'
 import Def from '../components/Editor/default'
 import StoreContext from '../assets/StoreContext'
 
+import logo from '../assets/LOGO3.png'
+
 import {FaDownload} from 'react-icons/fa'
+import Dummy from './Dummy'
 
 
 function MainPage() {
@@ -28,6 +31,7 @@ function MainPage() {
   const [dlink , setDlink] = useState(null)
 
   const {projectId} = useParams();
+  const [pid , setPid] = useState(projectId)
   const navigate = useNavigate()
 
   const [SaveCode , {load}] = useMutation(SAVE_CODE);
@@ -136,15 +140,11 @@ function MainPage() {
         console.log(data , 'dattttt')   
     }
 
-    if(!pdata.loading){
-        console.log(pdata.data , 'pdata')
-    }
-
   useEffect( () => {
 
         async function init(){    
         const uid = localStorage.getItem('uid')
-        console.log('uid' , uid )
+        
 
       if(!uid){
         setOptions({
@@ -229,7 +229,7 @@ function MainPage() {
         socketRef.current?.disconnect();
         socketRef.current?.off(ACTIONS.JOINED);
         socketRef.current?.off(ACTIONS.DISCONNECTED);
-        editorRef.current.setValue('')
+        editorRef.current?.setValue('')
         editorRef.current = null
     };
 }, [projectId]);
@@ -245,9 +245,16 @@ function MainPage() {
         console.log(ele)
     }
 
+    if(!pdata.loading && !pdata.data && projectId != '-1'){
+        console.log('NOT ACCESS THIS PAGE' )
+        
+        
+        return <Dummy/>
+    }
+
   return (<div className='cont'>
       <div className='left'>
-        {projectId == '-1' ? <>CODELAB</> : <LeftPane clients={clients} pid={projectId} data={pdata.data?.project}/>}
+        {projectId == '-1' ? <><Image  src={logo}></Image></> : <LeftPane clients={clients} pid={projectId} data={pdata.data?.project}/>}
       </div>
     <div className='main'>
         <div style={{maxHeight : '64px' , margin : '8px 0px' , backgroundColor :  'hsl(231, 25%, 18%)' , padding : '0px 4px'}}>
@@ -325,7 +332,7 @@ function MainPage() {
         
     </Grid>
         </div>
-        {projectId === '-1' ? <Def/> :  <Editor editorRef={editorRef} content={pdata.data?.project.content} socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>}
+        {pid == '-1' ? <Def/> :  <Editor editorRef={editorRef} content={pdata.data?.project.content} socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>}
     </div>
     <div className='right'>
         <RightPane setLang={setLang} lang={lang} data={data}/>
