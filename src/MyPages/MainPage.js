@@ -1,4 +1,4 @@
-import { Button, Center, Grid, Group, Modal, NativeSelect, Navbar, Text } from '@mantine/core'
+import { Badge, Button, Center, Grid, Group, Modal, NativeSelect, Navbar, Text } from '@mantine/core'
 import { useRef , useState , useEffect, useContext} from 'react'
 import Editor from '../components/Editor/Editor'
 import LeftPane from '../components/Editor/LeftPane'
@@ -14,6 +14,8 @@ import { USER_DATA , GET_PROJECTS, SAVE_CODE } from '../assets/queries'
 import Def from '../components/Editor/default'
 import StoreContext from '../assets/StoreContext'
 
+import {FaDownload} from 'react-icons/fa'
+
 
 function MainPage() {
 
@@ -23,6 +25,7 @@ function MainPage() {
   const [fsize , setFsize] = useState(18)
   const [opened, setOpened] = useState(false);
   const [output, setOutput] = useState(null);
+  const [dlink , setDlink] = useState(null)
 
   const {projectId} = useParams();
   const navigate = useNavigate()
@@ -35,6 +38,20 @@ function MainPage() {
 
   const [dis , setDis ] = useState(false)
 
+
+    const handleDownload = async () => {
+        const content = editorRef.current.getValue()
+        const fileName = pdata.data?.project.projectName
+        const fileExtension = (lang === 'python' ? 'py' : (lang === 'cmake' ? 'cpp' : 'js'))
+        
+        const file = new Blob([content] , {type : 'text/plain'})
+
+        console.log(content,fileExtension,fileName)
+
+        const link = document.createElement('a');
+        link.download = URL.createObjectURL(file)
+        setDlink({link : link.download , fname : `${fileName}.${fileExtension}`})
+      };
 
   async function handleCompile (){
     setDis(true)
@@ -52,10 +69,10 @@ function MainPage() {
     ).then((res)=>{
         console.log(res)
         if(res.error){
-            setOutput({title : 'Compilation Error , chla ja bsdk!!' , text : res.error , color : 'red'})
+            setOutput({title : 'Compilation Error' , text : res.error , color : 'red'})
         }
         else{
-            setOutput({title : 'Compilation Successfull  , hnn meri jann!' , text : res.output , color : 'green'})
+            setOutput({title : 'Compilation Successfull ' , text : res.output , color : 'green'})
         }
         setOpened(true)
     })
@@ -193,6 +210,7 @@ function MainPage() {
         socketRef.current.disconnect();
         socketRef.current.off(ACTIONS.JOINED);
         socketRef.current.off(ACTIONS.DISCONNECTED);
+        editorRef.current = null
     };
 }, [projectId]);
 
@@ -213,8 +231,17 @@ function MainPage() {
       </div>
     <div className='main'>
         <div style={{maxHeight : '64px' , margin : '8px 0px' , backgroundColor :  'hsl(231, 25%, 18%)' , padding : '0px 4px'}}>
-    <Grid gutter='xs' justify="center">
+    <Grid gutter='sm' px='md' justify="left">
+        <Grid.Col span={1}>
+            <Center>
+                <Badge variant="filled" py='md' mt='md' color='green' fullWidth>
+                {pdata.data?.project.projectName}
+                </Badge>
+            </Center>
+        </Grid.Col>
+        <Grid.Col span={1}>
 
+        </Grid.Col>
         <Grid.Col  span={2}>
             <Text color='cyan'>Language</Text>
             <Group spacing={'4px'}>
@@ -224,12 +251,12 @@ function MainPage() {
             </Group>
         </Grid.Col>
 
-        <Grid.Col span={3}>
+        <Grid.Col span={2}>
             <Text color='cyan'>Theme</Text>
             <Group spacing={'4px'}>
-            <Button size='sm' compact variant={`${theme === 'dracula' ? 'filled' : 'outline'}`} onClick={()=>setTheme('dracula')}>Dracula</Button>
-            <Button size='sm' compact variant={`${theme === 'solarized light' ? 'filled' : 'outline'}`} onClick={()=>setTheme('solarized light')}>Solarized</Button>
-            <Button size='sm' compact variant={`${theme === 'lucario' ? 'filled' : 'outline'}`} onClick={()=>setTheme('lucario')}>Lucario</Button>
+                <Button size='sm' compact variant={`${theme === 'dracula' ? 'filled' : 'outline'}`} onClick={()=>setTheme('dracula')}>Dracula</Button>
+                <Button size='sm' compact variant={`${theme === 'solarized light' ? 'filled' : 'outline'}`} onClick={()=>setTheme('solarized light')}>Solarized</Button>
+                <Button size='sm' compact variant={`${theme === 'lucario' ? 'filled' : 'outline'}`} onClick={()=>setTheme('lucario')}>Lucario</Button>
             </Group>
         </Grid.Col>
 
@@ -240,13 +267,8 @@ function MainPage() {
                 <Button size='sm' compact variant='outline' onClick={()=>{setFsize(Number( fsize) - 2);console.log(fsize)}}>A-</Button>
             </Group>
         </Grid.Col >
-        <Grid.Col mr='md' span={1}>
-        </Grid.Col >
 
         <Grid.Col span={1}>
-            <Center>
-                <Text my='sm' sx={{fontFamily : 'Bitter' ,fontWeight : 400}} color={'white'}>{pdata.data?.project.projectName}</Text>
-            </Center>
         </Grid.Col>
 
         <Grid.Col mx={0} span={1}>
@@ -255,18 +277,28 @@ function MainPage() {
             }}>SAVE</Button>
         </Grid.Col>
 
-        <Grid.Col mx={0} span={1}>
+        <Grid.Col span={1}>
             <Button my='sm' loading={dis} onClick={(e)=>{
                 handleCompile()
-            }}>Compile & Run</Button>
+            }}>Compile </Button>
+        </Grid.Col>
+        <Grid.Col span={1}>
+            { dlink ?<a my='sm' style={{
+                textDecoration : 'none',
+                backgroundColor : '#40C057',
+                color : 'white',
+                borderRadius : '4px',
+                marginTop : '12px',
+                display: 'block',
+                padding:'8px',
+                width : '24px',
+                height : '18px',
+                paddingLeft : '12px'
+                
+            }}  href={dlink.link} download={dlink.fname} onClick={handleDownload}><FaDownload/></a>: <Button m='sm' onClick={handleDownload}>Generate</Button> }
         </Grid.Col>
 
         
-        <Grid.Col span={2}>
-            {/* <Center>
-                <Text my='sm' sx={{fontFamily : 'Bitter' ,fontWeight : 400}} color={'white'}>{pdata.data?.project.projectName}</Text>
-            </Center> */}
-        </Grid.Col>
     </Grid>
         </div>
         {projectId === '-1' ? <Def/> :  <Editor editorRef={editorRef} content={pdata.data?.project.content} socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>}

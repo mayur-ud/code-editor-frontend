@@ -7,8 +7,12 @@ import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import ACTIONS from '../Actions';
 
+import { cursorTooltipField } from './Editor/Tooltip';
+
 const Editor = ({ socketRef, projectId, onCodeChange }) => {
     const editorRef = useRef(null);
+
+
     useEffect(() => {
         async function init() {
             console.log('INIT CAlled')
@@ -35,6 +39,11 @@ const Editor = ({ socketRef, projectId, onCodeChange }) => {
                     });
                 }
             });
+
+            editorRef.current.on('mouseenter' , (e)=>{
+                e.preventDefault()
+                console.log('LOGGED')
+            })
         }
         init();
     }, []);
@@ -53,7 +62,7 @@ const Editor = ({ socketRef, projectId, onCodeChange }) => {
         };
     }, [socketRef.current]);
 
-    return <textarea id="realtimeEditor"></textarea>;
+    return <textarea onMouseEnter={handleMouseOver} id="realtimeEditor"></textarea>;
 };
 
 export default Editor;
