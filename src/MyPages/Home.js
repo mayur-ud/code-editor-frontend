@@ -11,7 +11,7 @@ function Home() {
   return (
     <>
     <div style={{
-        background: '-moz-linear-gradient(90deg, rgba(2,11,25,0.7933240190607493) 0%, rgba(12,22,56,1) 59%)',
+        background: ' 	hsl(203,80%, 12%)',
         filter : 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#020b19",endColorstr="#0c1638",GradientType=1)',
         padding:'18px',
         paddingBottom : '128px',
@@ -25,14 +25,22 @@ function Home() {
             <UnstyledButton sx={{
                 marginRight : 42,
                 float : 'right',
+             border: '2px solid black',
+                padding: '8px',
+                borderRadius: '6px',
+                color: 'whitesmoke'
+                
                 
             }} onClick={()=>navigate('/auth/login')} className='hm-btn'>Login</UnstyledButton>
 
-        <div className='cont'>
-            <div className='cont1' style={{fontSize : '1.3rem'}}>
-                <Title className='title' m='md' >Code Collab Website Title</Title>
-                <Text className='slogan' p='md'>VS Code, Visual Studio Code, Live Share identifies a user by MS or Github account. You also can join as an anonymous with limited features. However, it’s better to have one of these accounts, to make full use of VS Code Live Share features;</Text>
-                <UnstyledButton className='pbtn' onClick={()=>navigate('/auth/signup')}>Explore Now</UnstyledButton>
+        <div className='cont' >
+            <div className='cont1'  style={{fontSize : '1.0rem'}}>
+                <div >
+                <Title order={2} className='title' style={{fontSize : '6.0rem',color: 'hsl(210,50%, 80%)',}} m='sm' >Code Collab </Title>
+                </div>
+               
+                <Text className='slogan' p='md'>Code collaboration platforms allow multiple developers to work on the same codebase simultaneously, improving teamwork and communication, and reducing the risk of conflicts.</Text>
+                <UnstyledButton className='pbtn' onClick={()=>navigate('/auth/login')}>Explore Now</UnstyledButton>
             </div>
             <div className='cont2'>
                 <Image className='heroGif' src={hero}  />

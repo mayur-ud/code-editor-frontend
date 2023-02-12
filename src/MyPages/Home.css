@@ -56,14 +56,14 @@
 }
 
 .pbtn{
-    background-color: hsl(236, 30%, 30%);
+    background-color: hsl(203,80%, 22%);
     padding: 12px;
     font-size: 32px;
     border: 40px;
-    box-shadow: -3px 5px hsl(236, 70%, 83%);
+    box-shadow: 4px 5px hsl(200,80%, 35%);
     color: rgba(255,255,255,0.8);
-    margin-left: 50%;
-    margin-top: 96px;
+    margin-left: 25%;
+    margin-top: 30px;
     
 }
 

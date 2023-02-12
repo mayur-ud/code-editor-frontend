@@ -13,21 +13,53 @@ import {
   
   const mockdata = [
     {
-      title: 'Extreme performance',
+      title: 'Access control',
       description:
-        'This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit',
+        'Allows administrators to control who has access to the codebase and what level of access they have, ensuring that sensitive information is protected.',
     //   icon: IconGauge,
     },
     {
-      title: 'Privacy focused',
+      title: 'User-friendly interface',
       description:
-        'People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma',
+        'Offer a user-friendly interface that is easy to use and navigate, allowing developers to focus on coding instead of navigating through complicated tools.',
     //   icon: IconUser,
     },
     {
-      title: 'No third parties',
+      title: 'Collaborative editing',
       description:
-        'They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves',
+        'Enables multiple developers to work on the same file at the same time, making it easier to collaborate on code in real-time.',
+    //   icon: IconCookie,
+    },
+
+    
+    
+  ];
+
+  const mockdata1=[
+    {
+      title: 'Secure data storage',
+      description:'Ensure that all data and code is stored securely, protecting sensitive information and promoting data privacy.',
+    //   icon: IconCookie,
+    },
+
+    {
+      title: 'Improved efficiency',
+      description:
+        'By enabling developers to save changes to the code quickly and easily, the "Save" feature promotes efficiency.',
+    //   icon: IconCookie,
+    },
+
+    {
+      title: ' Personalization',
+      description:
+        ' The "Change Themes" feature offers users the ability to customize the look and feel of the code editor, making it unique and personal to their individual preferences.',
+    //   icon: IconCookie,
+    },
+
+    {
+      title: 'Enhanced Code Review',
+      description:
+        'The ability to adjust font size can be particularly useful during code review, as it can make it easier to spot errors and inconsistencies in the code.',
     //   icon: IconCookie,
     },
   ];
@@ -91,6 +123,21 @@ import {
       
       </Fcard>
     ));
+
+    const feature = mockdata1.map((feature,index) => (
+      <Fcard  key={index} className={classes.card}  >
+        
+        <Text color="white" size="xl" weight={500} className={classes.cardTitle} mt="md">
+          {feature.title}
+        </Text>
+        <Text size="lg"   color="hsl(226, 51%, 74%)" mt="sm">
+          {feature.description}
+        </Text>
+      
+      
+      </Fcard>
+    ));
+
     return (
       <Container size="lg" py="xl">
         <Group position="center">
@@ -100,17 +147,21 @@ import {
         </Group>
   
         <Title order={1} sx={{fontSize : '42px'}} color="hsl(200, 53%, 39%)" className={classes.title} align="center" mt="sm" >
-          Integrate effortlessly with any technology stack
+        Collaboration made simple, effective, and efficient.
         </Title>
   
         <Text color="dimmed" size="22px"  className={classes.description} align="center" mt={'48px'}>
-          Every once in a while, you’ll see a Golbat that’s missing some fangs. This happens when
-          hunger drives it to try biting a Steel-type Pokémon.
+        Code collaboration is the process of merging individual perspectives and skills to create something greater than the sum of its parts.
         </Text>
   
         <SimpleGrid cols={3} spacing="xl" mt={50} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
           {features}
         </SimpleGrid>
+
+        <SimpleGrid cols={4} spacing="xl" mt={50} breakpoints={[{ maxWidth: 'lg', cols: 2 }]}>
+          {feature}
+        </SimpleGrid>
+
       </Container>
     );
   }
