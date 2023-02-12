@@ -36,11 +36,11 @@ import {
   ];
 
   const mockdata1=[
-    {
-      title: 'Secure data storage',
-      description:'Ensure that all data and code is stored securely, protecting sensitive information and promoting data privacy.',
-    //   icon: IconCookie,
-    },
+    // {
+    //   title: 'Secure data storage',
+    //   description:'Ensure that all data and code is stored securely, protecting sensitive information and promoting data privacy.',
+    // //   icon: IconCookie,
+    // },
 
     {
       title: 'Improved efficiency',
@@ -62,6 +62,8 @@ import {
         'The ability to adjust font size can be particularly useful during code review, as it can make it easier to spot errors and inconsistencies in the code.',
     //   icon: IconCookie,
     },
+
+   
   ];
   
   const useStyles = createStyles((theme) => ({
@@ -158,7 +160,7 @@ import {
           {features}
         </SimpleGrid>
 
-        <SimpleGrid cols={4} spacing="xl" mt={50} breakpoints={[{ maxWidth: 'lg', cols: 2 }]}>
+        <SimpleGrid cols={3} spacing="xl" mt={50}  breakpoints={[{ maxWidth: 'lg', cols: 1 }]}>
           {feature}
         </SimpleGrid>
 
