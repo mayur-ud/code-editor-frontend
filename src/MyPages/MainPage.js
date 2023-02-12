@@ -1,4 +1,4 @@
-import { Button, Center, Grid, Group, NativeSelect, Navbar, Text } from '@mantine/core'
+import { Button, Center, Grid, Group, Modal, NativeSelect, Navbar, Text } from '@mantine/core'
 import { useRef , useState , useEffect, useContext} from 'react'
 import Editor from '../components/Editor/Editor'
 import LeftPane from '../components/Editor/LeftPane'
@@ -21,6 +21,8 @@ function MainPage() {
   const codeRef = useRef(null);
   const [clients, setClients] = useState([]);
   const [fsize , setFsize] = useState(18)
+  const [opened, setOpened] = useState(false);
+  const [output, setOutput] = useState(null);
 
   const {projectId} = useParams();
   const navigate = useNavigate()
@@ -31,9 +33,34 @@ function MainPage() {
 
   const {setOptions , socketRef , setCast} = useContext(StoreContext)
 
+  const [dis , setDis ] = useState(false)
 
-  function handleCompile (){
-    console.log(lang ,editorRef.current.getValue())
+
+  async function handleCompile (){
+    setDis(true)
+    const lan = (lang === 'python' ? 'py' : (lang === 'cmake' ? 'cpp' : 'js'))
+    await fetch('https://api.codex.jaagrav.in' , {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            language : lan,
+            code : editorRef.current.getValue()
+        })}).then((res)=>
+        res.json()
+    ).then((res)=>{
+        console.log(res)
+        if(res.error){
+            setOutput({title : 'Compilation Error , chla ja bsdk!!' , text : res.error , color : 'red'})
+        }
+        else{
+            setOutput({title : 'Compilation Successfull  , hnn meri jann!' , text : res.output , color : 'green'})
+        }
+        setOpened(true)
+    })
+
+    setDis(false)
   }
 
   useEffect(()=>{
@@ -229,7 +256,7 @@ function MainPage() {
         </Grid.Col>
 
         <Grid.Col mx={0} span={1}>
-            <Button my='sm'  onClick={(e)=>{
+            <Button my='sm' loading={dis} onClick={(e)=>{
                 handleCompile()
             }}>Compile & Run</Button>
         </Grid.Col>
@@ -247,6 +274,14 @@ function MainPage() {
     <div className='right'>
         <RightPane setLang={setLang} lang={lang} data={data}/>
     </div>
+
+    <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title={<Text color={output?.color}  fw={600}>{output?.title}</Text>}
+      >
+        <Text>{output?.text}</Text>
+      </Modal>
     </div>
   )
 }
