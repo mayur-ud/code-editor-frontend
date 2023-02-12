@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {FaPlusCircle , FaFolder , FaArrowRight} from 'react-icons/fa'
 
 
@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom'
 import InputForm from '../../components/Editor/addProject'
 
 function RightPane({lang , setLang , data}) {
-  console.log(data , 'data')
+  
 
   const [opened, setOpened] = useState(false);  
+  
 
   const c = data?.user.allowedProjects.filter( x => !data?.user.createdProjects.filter( y => y.projectId === x.projectId).length);
 
@@ -59,7 +60,7 @@ function RightPane({lang , setLang , data}) {
         onClose={() => setOpened(false)}
         title="Create New Project"
       >
-        <InputForm setOpened={setOpened}/>
+        <InputForm setOpened={setOpened} data={data}/>
       </Modal>
       
       

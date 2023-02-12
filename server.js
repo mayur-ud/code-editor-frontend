@@ -3,7 +3,7 @@ const app = express();
 const http = require('http');
 const path = require('path');
 const { Server } = require('socket.io');
-const ACTIONS = require('./src/Actions');
+const ACTIONS = require('./src/Actions')
 
 const server = http.createServer(app);
 const io = new Server(server);
@@ -51,6 +51,11 @@ io.on('connection', (socket) => {
         io.to(socketId).emit(ACTIONS.CODE_CHANGE, { code });
     });
 
+    socket.on(ACTIONS.BROADCAST, ({ projectId, cast }) => {
+        console.log(projectId , cast , 'SERVER BCAST')
+        socket.in(projectId).emit(ACTIONS.GET_BROADCAST, { cast });
+    });
+
     socket.on('disconnecting', () => {
         const rooms = [...socket.rooms];
         rooms.forEach((roomId) => {
@@ -62,6 +67,8 @@ io.on('connection', (socket) => {
         delete userSocketMap[socket.id];
         socket.leave();
     });
+
+    socket
 });
 
 

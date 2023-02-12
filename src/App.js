@@ -8,13 +8,18 @@ import Dummy from './MyPages/Dummy';
 import Auth from './components/Auth/App1';
 import Def from './components/Editor/default';
 import { Affix, Notification } from '@mantine/core';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import StoreContext from './assets/StoreContext';
+import ACTIONS from './Actions';
+import { useTimeout } from '@mantine/hooks';
+
 
 
 function App() {
 
-    const { options , setOptions , cast} = useContext(StoreContext)
+    const { options , setOptions ,cast , setCast } = useContext(StoreContext)
+
+
     
     return (
         <>
@@ -33,14 +38,14 @@ function App() {
             </BrowserRouter>
 
             {options && <Affix position={{ top: 20, right: 20 }}>
-            <Notification color={`${options.color ? options.color : 'teal'}`} title={options.title}>
+            <Notification disallowClose onClose={()=>{setOptions(null)}} color={`${options.color ? options.color : 'teal'}`} title={options.title}>
                     {options.text}
             </Notification>
             </Affix>}
 
             {cast && <Affix position={{ bottom: 20, right: 20 }}>
-            <Notification color={`${options.color ? options.color : 'teal'}`} title={options.title}>
-                    {options.text}
+            <Notification  onClose={()=>{setCast(null)}}  color={'indigo'} title={cast.title}>
+                    {cast.text}
             </Notification>
             </Affix>}
         </>

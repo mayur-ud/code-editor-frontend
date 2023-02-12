@@ -1,12 +1,10 @@
-import { Button, Grid, Group, NativeSelect, Navbar, Text } from '@mantine/core'
+import { Button, Center, Grid, Group, NativeSelect, Navbar, Text } from '@mantine/core'
 import { useRef , useState , useEffect, useContext} from 'react'
 import Editor from '../components/Editor/Editor'
 import LeftPane from '../components/Editor/LeftPane'
 import RightPane from '../components/Editor/RightPane'
 
 import './MainPage.css'
-
-
 
 import ACTIONS from '../Actions';
 import { initSocket } from '../socket';
@@ -21,7 +19,6 @@ function MainPage() {
 
 
   const codeRef = useRef(null);
-  const socketRef = useRef(null);
   const [clients, setClients] = useState([]);
   const [fsize , setFsize] = useState(18)
 
@@ -32,7 +29,28 @@ function MainPage() {
 
   let editorRef = useRef()
 
-  const {setOptions} = useContext(StoreContext)
+  const {setOptions , socketRef , setCast} = useContext(StoreContext)
+
+
+  function handleCompile (){
+    console.log(lang ,editorRef.current.getValue())
+  }
+
+  useEffect(()=>{
+
+    if(socketRef.current){
+        console.log('SOCKET EXISTSSSS')
+        socketRef.current.on(ACTIONS.GET_BROADCAST , ({cast})=>{
+            console.log('CAUGHT GET BROADCAST' , cast)
+            setCast(cast)
+            setTimeout(() => {
+                setCast(null)
+            }, 10000000);
+        })
+      }
+  },[socketRef?.current])
+
+  
 
 
   const handleSave = (e)=>{
@@ -94,7 +112,17 @@ function MainPage() {
         socketRef.current.on('connect_failed', (err) => handleErrors(err));
 
         function handleErrors(e) {
-            console.log('socket error', e);
+            console.log(e , 'HEREEE')
+            setOptions({
+                text : 'Something went wrong',
+                color : 'red',
+                title : 'Sorry'
+
+            })
+
+            setTimeout(() => {
+                setOptions(null)
+            }, 3000);
             navigate('/' , {'replace' : true} )
 
         }
@@ -158,9 +186,9 @@ function MainPage() {
       </div>
     <div className='main'>
         <div style={{maxHeight : '64px' , margin : '8px 0px' , backgroundColor :  'hsl(231, 25%, 18%)' , padding : '0px 4px'}}>
-    <Grid>
+    <Grid gutter='xs' justify="center">
 
-        <Grid.Col  span={4}>
+        <Grid.Col  span={2}>
             <Text color='cyan'>Language</Text>
             <Group spacing={'4px'}>
             <Button size='sm' compact variant={`${lang === 'cmake' ? 'filled' : 'outline'}`} onClick={()=>{setLang('cmake')}}>C++</Button>
@@ -169,7 +197,7 @@ function MainPage() {
             </Group>
         </Grid.Col>
 
-        <Grid.Col span={4}>
+        <Grid.Col span={3}>
             <Text color='cyan'>Theme</Text>
             <Group spacing={'4px'}>
             <Button size='sm' compact variant={`${theme === 'dracula' ? 'filled' : 'outline'}`} onClick={()=>setTheme('dracula')}>Dracula</Button>
@@ -178,17 +206,39 @@ function MainPage() {
             </Group>
         </Grid.Col>
 
-        <Grid.Col  span={2}>
+        <Grid.Col mr='md' span={1}>
             <Text color='cyan'>Font Size</Text>
             <Group spacing={'4px'}>
                 <Button size='sm' compact variant='outline' onClick={()=>{setFsize(Number(fsize) + 2);console.log(fsize)}}>A+</Button>
                 <Button size='sm' compact variant='outline' onClick={()=>{setFsize(Number( fsize) - 2);console.log(fsize)}}>A-</Button>
             </Group>
         </Grid.Col >
-        <Grid.Col span={2}>
-            <Button onClick={(e)=>{
+        <Grid.Col mr='md' span={1}>
+        </Grid.Col >
+
+        <Grid.Col span={1}>
+            <Center>
+                <Text my='sm' sx={{fontFamily : 'Bitter' ,fontWeight : 400}} color={'white'}>{pdata.data?.project.projectName}</Text>
+            </Center>
+        </Grid.Col>
+
+        <Grid.Col mx={0} span={1}>
+            <Button my='sm'  onClick={(e)=>{
                 handleSave(e)
             }}>SAVE</Button>
+        </Grid.Col>
+
+        <Grid.Col mx={0} span={1}>
+            <Button my='sm'  onClick={(e)=>{
+                handleCompile()
+            }}>Compile & Run</Button>
+        </Grid.Col>
+
+        
+        <Grid.Col span={2}>
+            {/* <Center>
+                <Text my='sm' sx={{fontFamily : 'Bitter' ,fontWeight : 400}} color={'white'}>{pdata.data?.project.projectName}</Text>
+            </Center> */}
         </Grid.Col>
     </Grid>
         </div>
