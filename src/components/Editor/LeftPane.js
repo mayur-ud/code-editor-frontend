@@ -8,6 +8,11 @@ import ACTIONS from '../../Actions';
 import { ADD_TO_PROJ , USER_DATA, GET_PROJECTS } from '../../assets/queries';
 import StoreContext from '../../assets/StoreContext';
 function LeftPane({clients , data , pid}) {
+  
+  const { options , setOptions , socketRef , setCast} = useContext(StoreContext)
+  const inpRef = useRef()
+  const castRef = useRef()
+  const params = useParams()
 
   const [AddToProject , {loading , error }] = useMutation(ADD_TO_PROJ , {
     refetchQueries: [{query : USER_DATA,variables: { userId: localStorage.getItem('uid') }},
@@ -15,10 +20,7 @@ function LeftPane({clients , data , pid}) {
   ],
   })
 
-  const { options , setOptions , socketRef , setCast} = useContext(StoreContext)
-  const inpRef = useRef()
-  const castRef = useRef()
-  const params = useParams()
+  
 
 
   const handleCast = (e)=>{
