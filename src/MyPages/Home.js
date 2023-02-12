@@ -22,7 +22,7 @@ function Home() {
                 marginLeft : 26,
             }} className='hm-btn'>LOGO</UnstyledButton> */}
          <div minWidth="30px">
-         <img src={logo} height="150px" width="150px" alt="ogo" />
+         <img src={logo} height="110px" width="200px" alt="ogo" />
          </div>
           
 
