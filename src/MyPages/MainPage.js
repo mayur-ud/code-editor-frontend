@@ -295,7 +295,7 @@ function MainPage() {
         </Grid.Col>
 
         <Grid.Col mx={0} span={1}>
-            <Button my='sm'  onClick={(e)=>{
+            <Button my='sm'  color='#4F78BA' onClick={(e)=>{
                 handleSave(e)
             }}>SAVE</Button>
         </Grid.Col>

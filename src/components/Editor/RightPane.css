@@ -4,7 +4,7 @@
     margin-left: 8px;
     padding-bottom: 12px;
     margin-top: 12px;
-    border-bottom: 2px solid #111;
+    border-bottom: 2px solid #ddd6d6;
 }
 
 
@@ -14,7 +14,11 @@
 
 .btn:first-of-type{
     margin-top: 36px;
-    border-top: 2px solid #111;
+    border-top: 2px solid #ddd6d6;
     padding-top:12px ;
    
+}
+
+#aside-toolbar{
+    transition: display 2s;
 }

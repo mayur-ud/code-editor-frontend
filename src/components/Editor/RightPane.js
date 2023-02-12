@@ -25,22 +25,22 @@ function RightPane({lang , setLang , data}) {
           const ele = document.getElementById('aside-toolbar');
           ele.style.display = 'none'}} sx={{display : 'fixed' , top : '5px' , right : '5px'}} ><FaArrowRight size={'24px'} /></ActionIcon>
 
-          <Title style={{color : '#1D4F63'}}>My Projects</Title>
-          <ScrollArea type="never" sx={{height:'30vh'}}>
+          <Title style={{color : 'hsl(197, 55%, 55%)'}}>My Projects</Title>
+          <ScrollArea type="hover" sx={{height:'30vh'}}>
             {data?.user.createdProjects.map((ele)=><UnstyledButton onClick={()=>{
               nav(`/editor/${ele.projectId}`);
               document.getElementById('aside-toolbar').style.display = 'none'
 
-            }} size='lg' p='md'  sx={{marginBottom : '12px' , borderRadius : '8px', display : 'block' , border : '2px solid black', fontFamily : 'Bitter' , color : 'white', width : '100%'}} key={ele.projectId}>{ele.projectName}</UnstyledButton>)}
+            }} size='lg' p='md'  sx={{marginBottom : '12px' , borderRadius : '8px', display : 'block' , border : '2px solid hsl(217, 40%, 32%)', fontFamily : 'Bitter' , color : 'white', width : '100%'}} key={ele.projectId}>{ele.projectName}</UnstyledButton>)}
           </ScrollArea>
 
-          <Title style={{color : '#1D4F63'}}>Joined Projects</Title>
+          <Title style={{color : 'hsl(197, 55%, 55%)'}}>Joined Projects</Title>
           <ScrollArea type="never" sx={{height:'30vh'}}>
             {c?.map((ele)=><UnstyledButton  onClick={()=>{
               nav(`/editor/${ele.projectId}`);
               document.getElementById('aside-toolbar').style.display = 'none'
 
-            }} size='lg' p='md'  sx={{marginBottom : '12px' , borderRadius : '8px', display : 'block' , border : '2px solid black', fontFamily : 'Bitter' , color : 'white', width : '100%'}} key={ele.projectId}>{ele.projectName}</UnstyledButton>)}
+            }} size='lg' p='md'  sx={{marginBottom : '12px' , borderRadius : '8px', display : 'block' , border : '2px solid hsl(217, 40%, 32%)', fontFamily : 'Bitter' , color : 'hsl(80, 20%, 102%)', width : '100%'}} key={ele.projectId}>{ele.projectName}</UnstyledButton>)}
           </ScrollArea>
         
       </div>

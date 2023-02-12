@@ -92,26 +92,27 @@ function LeftPane({clients , data , pid}) {
 
       { (data?.createdBy === localStorage.getItem('uid')) && <div style={{marginTop : '48px'}}>
         <Input p='xs' placeholder='Add Member Email' ref={inpRef} sx={{fontWeight : 600 , fontSize : '24px' , maxWidth : '200px ' }}/>
-       <UnstyledButton sx={{
-        border : '2px solid hsl(209, 5%, 45%)',
+       <Button sx={{
+        // border : '2px solid hsl(209, 5%, 45%)',
         color : 'white',
         padding : '8px',
-        borderRadius : '8px',
-        margin : '18px',
-        backgroundColor: 'hsl(239, 25%, 35%)'
-       }} onClick={(e)=>{handleAdd(e)}}>Add Member</UnstyledButton>
+        // borderRadius : '8px',
+        margin : '8px',
+        marginLeft : '12px'
+        // backgroundColor: '#228BE6'
+       }} onClick={(e)=>{handleAdd(e)}}>Add Member</Button>
        </div>} 
 
        { data && <div style={{marginTop : '24px'}}>
         <Textarea p='xs' autosize placeholder='Broadcast instant message to all active participants' ref={castRef} sx={{fontWeight : 600 , fontSize : '24px' , maxWidth : '200px '}}/>
-       <UnstyledButton sx={{
-        border : '2px solid hsl(209, 5%, 45%)',
+       <Button sx={{
+        // border : '2px solid hsl(209, 5%, 45%)',
         color : 'white',
         padding : '8px',
-        borderRadius : '8px',
+        // borderRadius : '8px',
         margin : '12px',
-        backgroundColor: 'hsl(239, 25%, 35%)'
-       }} onClick={(e)=>{handleCast(e)}}>BroadCast</UnstyledButton>
+        // backgroundColor: 'hsl(239, 25%, 35%)'
+       }} onClick={(e)=>{handleCast(e)}}>BroadCast</Button>
        </div>} 
 
 
