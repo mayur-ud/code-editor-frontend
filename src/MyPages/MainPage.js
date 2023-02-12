@@ -1,5 +1,5 @@
 import { Button, Grid, Group, NativeSelect, Navbar, Text } from '@mantine/core'
-import { useRef , useState , useEffect} from 'react'
+import { useRef , useState , useEffect, useContext} from 'react'
 import Editor from '../components/Editor/Editor'
 import LeftPane from '../components/Editor/LeftPane'
 import RightPane from '../components/Editor/RightPane'
@@ -11,9 +11,10 @@ import './MainPage.css'
 import ACTIONS from '../Actions';
 import { initSocket } from '../socket';
 import { useNavigate, useParams } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
-import { USER_DATA , GET_PROJECTS } from '../assets/queries'
+import { useMutation, useQuery } from '@apollo/client'
+import { USER_DATA , GET_PROJECTS, SAVE_CODE } from '../assets/queries'
 import Def from '../components/Editor/default'
+import StoreContext from '../assets/StoreContext'
 
 
 function MainPage() {
@@ -22,9 +23,37 @@ function MainPage() {
   const codeRef = useRef(null);
   const socketRef = useRef(null);
   const [clients, setClients] = useState([]);
+  const [fsize , setFsize] = useState(18)
 
   const {projectId} = useParams();
   const navigate = useNavigate()
+
+  const [SaveCode , {load}] = useMutation(SAVE_CODE);
+
+  let editorRef = useRef()
+
+  const {setOptions} = useContext(StoreContext)
+
+
+  const handleSave = (e)=>{
+    e.preventDefault()
+    SaveCode({
+        variables : {
+            projectId : projectId,
+            content : editorRef.current.getValue()
+        }
+    }).then((res)=>{
+        setOptions({
+            text : 'Successfully saved',
+            color : 'green',
+            title : 'Success'
+          })
+          setTimeout(() => {
+            setOptions(null)
+          }, 3000);
+    })
+
+  }
 
   const uid = localStorage.getItem('uid')
 
@@ -115,17 +144,23 @@ function MainPage() {
 
     const [lang , setLang] = useState('cmake');
     const [theme , setTheme] = useState('dracula');
+    
+    const ele = document.getElementsByClassName('CodeMirror')[0]
 
+    if(ele){
+        ele.style.fontSize = `${fsize}px`
+        console.log(ele)
+    }
 
   return (<div className='cont'>
       <div className='left'>
-        {projectId != '-1' && <LeftPane clients={clients} pid={projectId} data={pdata.data?.project}/>}
+      {projectId != '-1' && <LeftPane clients={clients} pid={projectId} data={pdata.data?.project}/>}
       </div>
     <div className='main'>
         <div style={{maxHeight : '64px' , margin : '8px 0px' , backgroundColor :  'hsl(231, 25%, 18%)' , padding : '0px 4px'}}>
     <Grid>
 
-        <Grid.Col  span={6}>
+        <Grid.Col  span={4}>
             <Text color='cyan'>Language</Text>
             <Group spacing={'4px'}>
             <Button size='sm' compact variant={`${lang === 'cmake' ? 'filled' : 'outline'}`} onClick={()=>{setLang('cmake')}}>C++</Button>
@@ -134,7 +169,7 @@ function MainPage() {
             </Group>
         </Grid.Col>
 
-        <Grid.Col span={6}>
+        <Grid.Col span={4}>
             <Text color='cyan'>Theme</Text>
             <Group spacing={'4px'}>
             <Button size='sm' compact variant={`${theme === 'dracula' ? 'filled' : 'outline'}`} onClick={()=>setTheme('dracula')}>Dracula</Button>
@@ -142,9 +177,22 @@ function MainPage() {
             <Button size='sm' compact variant={`${theme === 'lucario' ? 'filled' : 'outline'}`} onClick={()=>setTheme('lucario')}>Lucario</Button>
             </Group>
         </Grid.Col>
+
+        <Grid.Col  span={2}>
+            <Text color='cyan'>Font Size</Text>
+            <Group spacing={'4px'}>
+                <Button size='sm' compact variant='outline' onClick={()=>{setFsize(Number(fsize) + 2);console.log(fsize)}}>A+</Button>
+                <Button size='sm' compact variant='outline' onClick={()=>{setFsize(Number( fsize) - 2);console.log(fsize)}}>A-</Button>
+            </Group>
+        </Grid.Col >
+        <Grid.Col span={2}>
+            <Button onClick={(e)=>{
+                handleSave(e)
+            }}>SAVE</Button>
+        </Grid.Col>
     </Grid>
         </div>
-        {projectId === '-1' ? <Def/> :  <Editor content={pdata.data?.project.content} socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>}
+        {projectId === '-1' ? <Def/> :  <Editor editorRef={editorRef} content={pdata.data?.project.content} socketRef={socketRef} projectId={projectId} onCodeChange={(code) => {codeRef.current = code;}} lang={lang} theme={theme}/>}
     </div>
     <div className='right'>
         <RightPane setLang={setLang} lang={lang} data={data}/>

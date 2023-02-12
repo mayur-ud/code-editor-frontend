@@ -1,11 +1,12 @@
 import { useMutation } from '@apollo/client';
 import { Button, Input, Text } from '@mantine/core';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { CREATE_PROJECT } from '../../assets/queries';
 import './addProject.css';
 
 import { v4 as uuidv4 } from 'uuid';
 import { useRef } from 'react';
+import StoreContext from '../../assets/StoreContext';
 
 
 function InputForm({setOpened}) {
@@ -13,6 +14,7 @@ function InputForm({setOpened}) {
 
 
   const [CreateProject , {loading , error , data}] = useMutation(CREATE_PROJECT);
+  const { setOptions} = useContext(StoreContext)
 
 
   const handleSubmit = (e) => {
@@ -25,7 +27,14 @@ function InputForm({setOpened}) {
 
       }
     }).then((res)=>{
-      console.log(res);
+      setOptions({
+        text : 'We have Created a new project for you',
+        color : 'green',
+        title : 'Hurray'
+      })
+      setTimeout(() => {
+        setOptions(null)
+      }, 3000);
       setOpened(false)
     })
 

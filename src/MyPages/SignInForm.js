@@ -1,7 +1,8 @@
-import React, { Component, useState } from "react";
+import React, { Component, useContext, useState } from "react";
 import { LOGIN_USER } from "../assets/queries";
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import StoreContext from "../assets/StoreContext";
 
 
 function SignInForm () {
@@ -11,6 +12,7 @@ function SignInForm () {
 
   const [LoginUser , {error}] = useMutation(LOGIN_USER)
   const nav = useNavigate()
+  const {setOptions} = useContext(StoreContext)
 
   async function HandleSubmit(){
     console.log(email , password)
@@ -20,9 +22,18 @@ function SignInForm () {
         password
       }
     }).then((e)=>{
-      console.log(e , 'LOGIN SUCCESS')
+
       localStorage.setItem('uid' , email)
       nav('/editor/-1')
+    }).catch((e)=>{
+      setOptions({
+        text : 'Unable to Login , Incorrect Password',
+        color : 'red',
+        title : 'Oops'
+      })
+      setTimeout(() => {
+        setOptions(null)
+      }, 3000);
     })
 
   }

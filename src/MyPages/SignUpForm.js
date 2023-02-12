@@ -1,7 +1,8 @@
-import React, { Component, useState } from "react";
+import React, { Component, useContext, useState } from "react";
 import { REGISTER_USER } from "../assets/queries";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import StoreContext from "../assets/StoreContext";
 
 function SignUpForm ({setShow}) {
   
@@ -11,6 +12,8 @@ function SignUpForm ({setShow}) {
 
   const [RegisterUser , {error}] = useMutation(REGISTER_USER)
   const nav = useNavigate()
+
+  const {setOptions} = useContext(StoreContext)
 
 
 
@@ -23,10 +26,30 @@ function SignUpForm ({setShow}) {
         password
       }
   }).then((resp)=>{
-    console.log(resp)
+    
+
+    setOptions({
+      text : 'We have registered you, please login',
+      color : 'green',
+      title : 'Success'
+    })
+    setTimeout(() => {
+      setOptions(null)
+    }, 5000);
+    
     setShow('login')
     
   }).catch((e)=>{
+
+    setOptions({
+      text : 'Something went wrong , please try again',
+      color : 'red',
+      title : 'Oops'
+    })
+    setTimeout(() => {
+      setOptions(null)
+    }, 3000);
+
     console.error(e)
   })
 

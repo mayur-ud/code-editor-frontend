@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect, useRef } from 'react';
 import Codemirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
@@ -16,10 +16,10 @@ import ACTIONS from '../../Actions';
 import './Editor.css'
 
 
-function Editor({ socketRef, projectId, onCodeChange , lang , theme , content}) {
+function Editor({ socketRef, projectId, onCodeChange , lang , theme , content , editorRef}) {
 
-    let editorRef = useRef(null);
     console.log('Elang' , lang)
+    
 
     useEffect(() => {
 
@@ -75,11 +75,12 @@ function Editor({ socketRef, projectId, onCodeChange , lang , theme , content}) 
             });
         }
 
+
         return () => {
             socketRef.current.off(ACTIONS.CODE_CHANGE);
         };
     }, [socketRef.current]);
-
+    
 
   return (
     <textarea id="realtimeEditor" style={{minHeight : '100vh'}}></textarea>

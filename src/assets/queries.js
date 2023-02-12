@@ -46,6 +46,14 @@ mutation CreateProject($userId: String!, $projectId: String! , $projectName : St
 }
 `
 
+export const SAVE_CODE = gql`
+mutation SaveCode($projectId: String!, $content: String!) {
+    save_code(input:{ content : $content , projectId : $projectId }) {
+        content
+    }
+}
+`
+
 
 
 export const ALL_USERS = gql`

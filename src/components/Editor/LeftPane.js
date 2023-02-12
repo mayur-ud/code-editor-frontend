@@ -1,21 +1,51 @@
 import { useMutation } from '@apollo/client';
-import { Button, Center, Group, SimpleGrid, Stack, Text, UnstyledButton } from '@mantine/core';
-import React from 'react'
+import { Button, Center, Group, Input, SimpleGrid, Stack, Text, UnstyledButton } from '@mantine/core';
+import React, { useContext, useRef } from 'react'
 import Avatar from 'react-avatar';
 import {RiRadioButtonLine} from 'react-icons/ri'
 import { ADD_TO_PROJ } from '../../assets/queries';
+import StoreContext from '../../assets/StoreContext';
 function LeftPane({clients , data , pid}) {
 
   const [AddToProject , {loading , error }] = useMutation(ADD_TO_PROJ)
 
+  const { options , setOptions} = useContext(StoreContext)
+  const inpRef = useRef()
+
   const handleAdd = (e)=>{
       e.preventDefault()
+      const uid = inpRef.current.value
+      console.log(uid  , 'LPane')
       AddToProject({
         variables : {
-          userId : 'qwert',
+          userId : uid,
           projectId : pid
         }
+      }).then((res)=>{
+        setOptions({
+          text : `${uid} was given access to this project`,
+          color : 'green',
+          title : 'Success'
+        })
+        setTimeout(() => {
+          setOptions(null)
+        }, 3000);
+
+        useRef.current.value = ''
+
+        console.log(res)
+      }).catch((e)=>{
+        setOptions({
+          text : `User with id ${uid} not found`,
+          color : 'red',
+          title : 'Sorry'
+        })
+        setTimeout(() => {
+          setOptions(null)
+        }, 5000);
       })
+
+      
   }
 
   return (
@@ -24,7 +54,7 @@ function LeftPane({clients , data , pid}) {
       position:'fixed',
       top:0
     }}>
-      <Center sx={{border : '1px solid green' , borderRadius : '4px' }} color='green' m='md' variant='outline' ><RiRadioButtonLine color='green'/><Text ml='sm' color='green'>Online</Text></Center>
+      <Center sx={{border : '1px solid green' , borderRadius : '4px' }} color='green' p='xs' m='sm' variant='outline'><Text mr={'md'} color='green'>Online</Text><RiRadioButtonLine ml='md' color='green'/></Center>
 
       <SimpleGrid cols={2} pl={'16px'} sx={{marginTop : '20px'}}>
       {clients.map((ele)=><Stack key={ele.username} spacing={0}>
@@ -33,7 +63,17 @@ function LeftPane({clients , data , pid}) {
       </Stack>)}
       </SimpleGrid>
 
-      { (data?.createdBy === localStorage.getItem('uid')) &&  <UnstyledButton onClick={(e)=>{handleAdd(e)}}>Add Members</UnstyledButton>} 
+      { (data?.createdBy === localStorage.getItem('uid')) && <>
+        <Input ml='md' mt='xl' ref={inpRef} sx={{fontWeight : 600 , fontSize : '24px'}}/>
+       <UnstyledButton sx={{
+        border : '2px solid hsl(209, 5%, 45%)',
+        color : 'white',
+        padding : '8px',
+        borderRadius : '8px',
+        margin : '18px',
+        backgroundColor: 'hsl(239, 25%, 35%)'
+       }} onClick={(e)=>{handleAdd(e)}}>Add Member</UnstyledButton>
+       </>} 
 
 
       

@@ -8,6 +8,7 @@ import {
   ApolloClient,
   ApolloProvider,  InMemoryCache,
 } from '@apollo/client'
+import { StoreProvider } from './assets/StoreContext';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000',
@@ -16,7 +17,10 @@ const client = new ApolloClient({
 
 
 ReactDOM.render(
-  <ApolloProvider client={client}>    <App />
+  <ApolloProvider client={client}>    
+    <StoreProvider>
+      <App />
+    </StoreProvider>
   </ApolloProvider>,
   document.getElementById('root')
 );
