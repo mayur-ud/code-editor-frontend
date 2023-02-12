@@ -21,7 +21,7 @@ const Auth=(props)=>  {
            <Tw/>
           <Card >
            <h1>
-           A real-time code editor platform that enables developers to collaborate on a piece of code simultaneously, with changes being reflected in real-time on all connected devices.This platform often come with a range of tools and features to make coding easier, such as syntax highlighting, version control .
+           A real-time code editor platform that enables developers to collaborate on a piece of code simultaneously, with changes being reflected in real-time on all connected devices.This platform often come with a range of tools and features to make coding easier, such as syntax highlighting, dynamic fontSize , saving changes,change theme .
            </h1>
            </Card>
           </div>

@@ -41,7 +41,7 @@ function Home() {
         <div className='cont' >
             <div className='cont1'  style={{fontSize : '1.0rem'}}>
                 <div >
-                <Title order={2} className='title' style={{fontSize : '6.0rem',color: 'hsl(210,50%, 80%)',}} m='sm' >Code Collab </Title>
+                <Title order={2} className='title' style={{fontfamily:'cursive', fontSize : '6.0rem',color: 'hsl(210,50%, 80%)',}} m='sm' >Code Collab </Title>
                 </div>
                
                 <Text className='slogan' p='md'>"Code collaboration platforms allow multiple developers to work on the same codebase simultaneously, improving teamwork and communication, and reducing the risk of conflicts."</Text>
