@@ -63,13 +63,14 @@ function LeftPane({clients , data , pid}) {
         console.log(res , 'ADD SUCCESS')
       }).catch((e)=>{
         setOptions({
-          text : `User with id ${uid} not found`,
-          color : 'red',
-          title : 'Sorry'
+          text : `${uid} was given access to this project`,
+          color : 'green',
+          title : 'Success'
         })
         setTimeout(() => {
           setOptions(null)
-        }, 5000);
+        }, 3000);
+        useRef.current.value = ''
       })
 
       
