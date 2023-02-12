@@ -43,7 +43,7 @@ function InputForm({setOpened , data}) {
         setOptions(null)
       }, 3000);
       setOpened(false)
-      navigate(`/editor/${pid}`)
+      // navigate(`/editor/${pid}`)
     })
 
   }

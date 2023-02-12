@@ -40,10 +40,6 @@ const Editor = ({ socketRef, projectId, onCodeChange }) => {
                 }
             });
 
-            editorRef.current.on('mouseenter' , (e)=>{
-                e.preventDefault()
-                console.log('LOGGED')
-            })
         }
         init();
     }, []);
@@ -52,17 +48,21 @@ const Editor = ({ socketRef, projectId, onCodeChange }) => {
         if (socketRef.current) {
             socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code }) => {
                 if (code !== null) {
-                    editorRef.current.setValue(code);
+                    editorRef.current?.setValue(code);
                 }
             });
         }
 
         return () => {
-            socketRef.current.off(ACTIONS.CODE_CHANGE);
+            socketRef.current?.off(ACTIONS.CODE_CHANGE);
         };
     }, [socketRef.current]);
 
-    return <textarea onMouseEnter={handleMouseOver} id="realtimeEditor"></textarea>;
+    useEffect(()=>{
+
+    },[editorRef.current])
+
+    return <textarea  id="realtimeEditor"></textarea>;
 };
 
 export default Editor;

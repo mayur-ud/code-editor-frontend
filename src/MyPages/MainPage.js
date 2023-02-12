@@ -214,13 +214,22 @@ function MainPage() {
                 console.log('disconnected ' , username)
                 console.log(clients)
             }
-        );}
+        );
+
+        if(pdata.data?.project.content){
+            editorRef.current?.setValue(pdata.data.project.content)
+        }
+    
+    
+    }
         }
         init()
     return () => {
-        socketRef.current.disconnect();
-        socketRef.current.off(ACTIONS.JOINED);
-        socketRef.current.off(ACTIONS.DISCONNECTED);
+        console.log('MAIN CLEANUP CALLED')
+        socketRef.current?.disconnect();
+        socketRef.current?.off(ACTIONS.JOINED);
+        socketRef.current?.off(ACTIONS.DISCONNECTED);
+        editorRef.current.setValue('')
         editorRef.current = null
     };
 }, [projectId]);
@@ -250,7 +259,7 @@ function MainPage() {
                 </Badge>
             </Center>}
         </Grid.Col>
-        <Grid.Col  span={2}>
+        <Grid.Col  span={2} ml='24px'>
             <Text color='cyan'>Language</Text>
             <Group spacing={'4px'}>
             <Button size='sm' compact variant={`${lang === 'cmake' ? 'filled' : 'outline'}`} onClick={()=>{setLang('cmake')}}>C++</Button>
@@ -259,7 +268,10 @@ function MainPage() {
             </Group>
         </Grid.Col>
 
-        <Grid.Col span={3}>
+        <Grid.Col span={3} sx={{
+            position : 'relative',
+            right : '32px'
+        }}>
             <Text color='cyan'>Theme</Text>
             <Group spacing={'4px'}>
                 <Button size='sm' compact variant={`${theme === 'dracula' ? 'filled' : 'outline'}`} onClick={()=>setTheme('dracula')}>Dracula</Button>
@@ -268,7 +280,10 @@ function MainPage() {
             </Group>
         </Grid.Col>
 
-        <Grid.Col mr='md' span={1}>
+        <Grid.Col mr='md' span={1} sx={{
+            position : 'relative',
+            right : '98px'
+        }}>
             <Text color='cyan'>Font Size</Text>
             <Group spacing={'4px'}>
                 <Button size='sm' compact variant='outline' onClick={()=>{setFsize(Number(fsize) + 2);console.log(fsize)}}>A+</Button>
@@ -290,7 +305,8 @@ function MainPage() {
                 handleCompile()
             }}>Compile </Button>
         </Grid.Col>
-        <Grid.Col span={1}>
+        <Grid.Col sx={{position : 'relative',
+                left : '24px'}} span={1}>
             { dlink ?<a my='sm' style={{
                 textDecoration : 'none',
                 backgroundColor : '#40C057',
@@ -301,9 +317,9 @@ function MainPage() {
                 padding:'8px',
                 width : '24px',
                 height : '18px',
-                paddingLeft : '12px'
+                paddingLeft : '12px',
                 
-            }}  href={dlink.link} download={dlink.fname} onClick={handleDownload}><FaDownload/></a>: <Button m='sm' onClick={handleDownload}>Generate</Button> }
+            }}  href={dlink.link} download={dlink.fname} onClick={handleDownload}><FaDownload/></a>: <Button m='sm' onClick={handleDownload}>Download</Button> }
         </Grid.Col>
 
         
