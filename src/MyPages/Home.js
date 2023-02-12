@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import hero from '../assets/hero.gif'
 import { FeaturesCards } from '../components/Feature'
-
+import logo from '../assets/LOGO.png'
 import './Home.css'
 
 function Home() {
@@ -17,21 +17,25 @@ function Home() {
         paddingBottom : '128px',
     }}
     >
-            <UnstyledButton sx={{
+            {/* <UnstyledButton sx={{
                 marginLeft : 26,
-            }} className='hm-btn'>LOGO</UnstyledButton>
+            }} className='hm-btn'>LOGO</UnstyledButton> */}
+         <div minWidth="30px">
+         <img src={logo} height="90px" width="150px" alt="ogo" />
+         </div>
+          
 
 
             <UnstyledButton sx={{
                 marginRight : 42,
                 float : 'right',
-             border: '2px solid black',
-                padding: '8px',
+            //  border: '2px solid black',
+                padding: '4px',
                 borderRadius: '6px',
-                color: 'whitesmoke'
+                color: '#9A9DA1'
                 
                 
-            }} onClick={()=>navigate('/auth/login')} className='hm-btn'>Login</UnstyledButton>
+            }} onClick={()=>navigate('/auth/login')} className='hm-btn'>Log In</UnstyledButton>
 
         <div className='cont' >
             <div className='cont1'  style={{fontSize : '1.0rem'}}>
@@ -39,7 +43,7 @@ function Home() {
                 <Title order={2} className='title' style={{fontSize : '6.0rem',color: 'hsl(210,50%, 80%)',}} m='sm' >Code Collab </Title>
                 </div>
                
-                <Text className='slogan' p='md'>Code collaboration platforms allow multiple developers to work on the same codebase simultaneously, improving teamwork and communication, and reducing the risk of conflicts.</Text>
+                <Text className='slogan' p='md'>"Code collaboration platforms allow multiple developers to work on the same codebase simultaneously, improving teamwork and communication, and reducing the risk of conflicts."</Text>
                 <UnstyledButton className='pbtn' onClick={()=>navigate('/auth/login')}>Explore Now</UnstyledButton>
             </div>
             <div className='cont2'>

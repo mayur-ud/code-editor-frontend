@@ -25,10 +25,11 @@
 }
 
 .hm-btn{
-    color: #0F6698;
+    color: #9A9DA1;
     background-color: transparent;
     font-size: 18px;
-    margin-top: 8px;
+    margin-top: -64px;
+    box-shadow: 4px 5px hsl(200,80%, 35%);
 
 }
 
