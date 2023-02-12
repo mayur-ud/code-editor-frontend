@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './MyPages/Home';
 import MainPage from './MyPages/MainPage';
-import Dummy from './MyPages/Dummy';
+import Dummy from './MyPages/404';
 import Auth from './components/Auth/App1';
 import Def from './components/Editor/default';
 import { Affix, Notification } from '@mantine/core';

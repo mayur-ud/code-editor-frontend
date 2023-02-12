@@ -1,4 +1,4 @@
-import { Badge, Button, Center, Grid, Group, Image, Modal, NativeSelect, Navbar, Text } from '@mantine/core'
+import { Badge, Box, Button, Center, Grid, Group, Image, Modal, NativeSelect, Navbar, Text } from '@mantine/core'
 import { useRef , useState , useEffect, useContext} from 'react'
 import Editor from '../components/Editor/Editor'
 import LeftPane from '../components/Editor/LeftPane'
@@ -17,7 +17,8 @@ import StoreContext from '../assets/StoreContext'
 import logo from '../assets/LOGO3.png'
 
 import {FaDownload} from 'react-icons/fa'
-import Dummy from './Dummy'
+import Dummy from './404'
+import Space from './404'
 
 
 function MainPage() {
@@ -249,7 +250,7 @@ function MainPage() {
         console.log('NOT ACCESS THIS PAGE' )
         
         
-        return <Dummy/>
+        return <Box >404 PAge not found</Box>
     }
 
   return (<div className='cont'>
