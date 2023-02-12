@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import hero from '../assets/hero.gif'
 import { FeaturesCards } from '../components/Feature'
-import logo from '../assets/LOGO.png'
+import logo from '../assets/LOGO1.png'
 import './Home.css'
 
 function Home() {
@@ -13,15 +13,16 @@ function Home() {
     <div style={{
         background: ' 	hsl(203,80%, 12%)',
         filter : 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#020b19",endColorstr="#0c1638",GradientType=1)',
-        padding:'18px',
+        padding:'12px',
         paddingBottom : '128px',
+        marginTop : '-32px'
     }}
     >
             {/* <UnstyledButton sx={{
                 marginLeft : 26,
             }} className='hm-btn'>LOGO</UnstyledButton> */}
          <div minWidth="30px">
-         <img src={logo} height="90px" width="150px" alt="ogo" />
+         <img src={logo} height="150px" width="150px" alt="ogo" />
          </div>
           
 
