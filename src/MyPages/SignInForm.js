@@ -14,15 +14,16 @@ function SignInForm () {
   const nav = useNavigate()
   const {setOptions} = useContext(StoreContext)
 
-  async function HandleSubmit(){
+  async function HandleSubmit(e){
     console.log(email , password)
+    e.preventDefault()
     LoginUser({
       variables : {
         userId : email,
         password
       }
     }).then((e)=>{
-
+      console.log('LOGIN RESPONSE' , e)
       localStorage.setItem('uid' , email)
       nav('/editor/-1')
     }).catch((e)=>{
@@ -73,7 +74,7 @@ function SignInForm () {
           </div>
 
           <div className="formField">
-            <button className="formFieldButton" onClick={()=>HandleSubmit()}>Sign In</button>{" "}
+            <button className="formFieldButton" onClick={(e)=>HandleSubmit(e)}>Sign In</button>{" "}
           </div>
         </form>
       </div>
