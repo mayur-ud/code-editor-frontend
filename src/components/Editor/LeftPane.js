@@ -90,7 +90,7 @@ function LeftPane({clients , data , pid}) {
     }}>
       <Center sx={{border : '1px solid green' , borderRadius : '4px' , maxWidth : '60%'}} color='green' p='sm' m='sm' variant='outline'><Text mr={'md'} color='green'>Online</Text><RiRadioButtonLine ml='md' color='green'/></Center>
 
-      <SimpleGrid cols={2} pl={'16px'} sx={{marginTop : '20px'}}>
+      <SimpleGrid cols={1} pl={'16px'} sx={{marginTop : '20px'}}>
       {clients.map((ele)=><Stack key={ele.username} spacing={0}>
         <Avatar name={ele.username} p={0} ml={'8px'} mb={0} round size={32}  />
         <Text size='sm' m={0} p={0} color='white'>{ele.username.split(' ')[0] > 10 ? ele.username.slice(0,11) : ele.username.split(' ')[0]}</Text>
